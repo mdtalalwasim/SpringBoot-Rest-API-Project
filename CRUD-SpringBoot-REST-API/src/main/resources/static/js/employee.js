@@ -4,7 +4,7 @@ function setBaseUrl(url){
 	baseUrl = url;
 }
 
-
+//for Save Employee
 function submitForm(){
 	this.event.preventDefault();
 	
@@ -49,16 +49,17 @@ function submitFormToServer(employee){
 	
 }
 
+// end of save Employee
 
 
 
+//for Edit Employee
 function submitEditForm(){
 	this.event.preventDefault();
 	
 	let employee = {};
 	let id = $("#id").val();
 	//alert("submitEditForm :"+id);
-	//alert("Id submitEditForm :"+id);
 	employee["id"] = id;
 	employee["name"] = $("#name").val();
 	employee["email"] = $("#email").val();
@@ -90,6 +91,10 @@ function submitEditFormToServer(employee, id){
 				window.location.href = '/';
 			}, 2000);
 			
+			if(result.statusCode==500){
+				swal(`${result.message}`);
+			}
+			
 			
 		},
 		error:function(e){
@@ -100,4 +105,48 @@ function submitEditFormToServer(employee, id){
 	});
 	
 }
+// end of Edit Employee
+
+
+// Delete Employee
+function deleteEntry(id) {
+let url = baseUrl+"/api/employee-delete/"+id;
+
+//alert("id id is :" +id);
+swal({
+    title: "Are you sure you want to Delete?",
+    text: "You will not be able to recover this data!",
+    icon: "warning",
+    buttons: [
+      'No, cancel it!',
+      'Yes, I am sure!'
+    ],
+    dangerMode: true,
+  }).then(function(isConfirm) {
+    if (isConfirm) {
+      swal({
+        title: 'Yes!',
+        text: 'Delete Successful!!',
+        icon: 'success'
+      }).then(function() {
+      	 $.ajax({
+               type: "DELETE",
+               url: url,
+               contentType: 'application/json; charset=utf-8',
+               dataType: "JSON",
+               success: function (response) {
+             	  window.location.reload();
+               },
+               error: function () {
+                   Swal.fire('error')
+               }
+           }); 
+        
+      });
+    } else {
+      swal("Cancelled", "Your data is safe :)", "error");
+    }
+  });
+}
+// end of Delete Employee
 

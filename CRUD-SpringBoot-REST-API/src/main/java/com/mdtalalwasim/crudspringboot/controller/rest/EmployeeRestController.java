@@ -5,6 +5,7 @@ package com.mdtalalwasim.crudspringboot.controller.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +84,36 @@ public class EmployeeRestController {
 			return responseData;
 		}
 		
+	}
+	
+	//
+	//Delete Employee
+	@DeleteMapping("/employee-delete/{id}")
+	public ResponseData deleteEmployee(@PathVariable long id) {
+		
+		ResponseData responseData = new ResponseData();
+		try {
+			
+			employeeService.deleteEmployee(id);
+			
+			responseData.setStatusCode(204);
+			responseData.setStatus("deleted");
+			responseData.setMessage("Employee Deleted Successfully.");
+			
+			
+			return responseData;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseData.setData(null);
+			responseData.setStatus("error");
+			responseData.setStatusCode(500);
+			responseData.setMessage(e.getMessage());
+			
+			
+			return responseData;
+			
+		}
 	}
 
 }
