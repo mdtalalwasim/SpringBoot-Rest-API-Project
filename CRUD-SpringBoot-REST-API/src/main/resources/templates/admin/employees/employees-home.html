@@ -4,7 +4,10 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>Employee Home</title>
 <!-- Bootstrap CSS -->
 <link
@@ -39,6 +42,12 @@
 <!-- DataTable CSS -->
 <link rel="stylesheet" type="text/css"
 	href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+<!-- pluging for dataTable responsive CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+<!-- pluging for dataTable responsive JS -->
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
+
 
 
 </head>
@@ -97,7 +106,7 @@
 				<div class="col-md-6 mt-3">
 					<a id="" th:href="@{/employee-add-form}" class="btn btn-fill btn-info"><i
 						class="fa fa-plus-square" aria-hidden="true"></i>Add</a>
-					<a id="" th:href="@{/employee-home}" class="btn btn-fill btn-info"><i
+					<a id="" th:href="@{/employee-edit-form}" class="btn btn-fill btn-info"><i
 						class="fa fa-plus-square" aria-hidden="true"></i>Edit Employee</a>
 				</div>
 				
@@ -116,6 +125,7 @@
 								<th>Contact</th>
 								<th>Department</th>
 								<th>Address</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 
@@ -212,6 +222,14 @@
 				}, 
 				{
 					data : 'address'
+				}, 
+				{
+					data : 'id',
+					responsivePriority:2,
+					"fnCreatedCell": function (nTd, sData, oData, iRow, iCol){
+						
+					}
+					
 				} 
 				
 			]
