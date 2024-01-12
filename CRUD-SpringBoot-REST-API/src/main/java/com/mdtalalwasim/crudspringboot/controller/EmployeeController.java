@@ -1,14 +1,24 @@
 package com.mdtalalwasim.crudspringboot.controller;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mdtalalwasim.crudspringboot.entity.Employee;
+import com.mdtalalwasim.crudspringboot.service.EmployeeService;
 
 @Controller
 //@RequestMapping("/admin")
 public class EmployeeController {
+	
+	@Autowired
+	EmployeeService employeeService;
 	
 	@GetMapping("/")
 	public String home(Model model) {
@@ -22,12 +32,26 @@ public class EmployeeController {
 		return "admin/employees/employees-home.html";
 	}
 	
-	@GetMapping("/employee-edit-form")
-	public ModelAndView employeeEdit(Model model) {
+	@GetMapping("/employee-edit-form/{employeeId}")
+	public ModelAndView employeeEdit(Model model, @PathVariable("employeeId") long id) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("Entering Employee Edit");
 		
-		
+		if(id != 0) {
+			
+			//fetch the employee details from db
+			Optional<Employee> employee = employeeService.getEmployeeById(id);
+			if(employee.isPresent()) {
+				Employee empObj = employee.get();
+				model.addAttribute("employee", empObj);
+				model.addAttribute("id", id);
+			}else {
+				System.out.println("Employee is not present!");
+			}
+			
+		}else {
+			System.out.println("Employee Id not found!");
+		}
 		
 		
 		mv.setViewName("admin/employees/employees-edit-form");

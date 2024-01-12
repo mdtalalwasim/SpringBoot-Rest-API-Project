@@ -22,7 +22,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- Font Awesome -->
-<link rel="stylesheet" th:href="@{/asset/css/font-awesome.min.css}" />
+<!-- <link rel="stylesheet" th:href="@{/asset/css/font-awesome.min.css}" /> -->
 
 
 <!-- sweetAlert -->
@@ -48,6 +48,8 @@
 <!-- pluging for dataTable responsive JS -->
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
 
+<!-- Include Font Awesome CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
 </head>
@@ -209,7 +211,8 @@
 					data : 'id'
 				}, */ 
 				{
-					data : 'name'
+					data : 'name',
+					responsivePriority:4
 				}, 
 				{
 					data : 'email'
@@ -225,9 +228,9 @@
 				}, 
 				{
 					data : 'id',
-					responsivePriority:2,
+					responsivePriority:5,
 					"fnCreatedCell": function (nTd, sData, oData, iRow, iCol){
-						
+					$(nTd).html("<a style='margin-right:3px; padding: 3px 7px;' class='btn btn-danger' onclick='deleteEntry("+oData.id+");' href='deleteEntry("+oData.id+");'><i class='fa fa-trash'></i> Delete</a><a style='margin-right: 3px; padding: 3px 7px;' class='btn btn-info' href='"+baseUrl+"/employee-edit-form/"+oData.id+"'><i class='fa fa-pen'></i> Edit</a>");	
 					}
 					
 				} 
