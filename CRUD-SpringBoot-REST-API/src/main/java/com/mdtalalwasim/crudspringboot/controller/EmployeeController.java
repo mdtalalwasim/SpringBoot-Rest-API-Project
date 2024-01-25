@@ -28,14 +28,14 @@ public class EmployeeController {
 	
 	@GetMapping("/employee-home")
 	public String employeeHome(Model model) {
-		System.out.println("Entering employee home...");
+		//System.out.println("Entering employee home...");
 		return "admin/employees/employees-home.html";
 	}
 	
 	@GetMapping("/employee-edit-form/{employeeId}")
 	public ModelAndView employeeEdit(Model model, @PathVariable("employeeId") long id) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("Entering Employee Edit");
+		//System.out.println("Entering Employee Edit");
 		
 		if(id != 0) {
 			
